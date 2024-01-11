@@ -1,6 +1,6 @@
 import forms
 
-from config import app, db, bcrypt, User
+from config import app, db, bcrypt, User, get_user_websites, WebsiteData
 from flask import render_template, request, redirect, url_for
 from flask_login import login_user, current_user, logout_user, login_required
 from sqlalchemy.exc import IntegrityError
@@ -39,6 +39,35 @@ def base():
     return render_template('base.html',
                            login_form=forms.LoginForm(),
                            register_form=forms.RegistrationForm())
+
+
+@app.route('/index', methods=['GET', 'POST'])
+def index():
+    if forms.WebsiteDataForm().validate_on_submit():
+        website_data_form = forms.WebsiteDataForm()
+        website_data = WebsiteData(WebsiteName=website_data_form.WebsiteName.data,
+                                   WebsiteURL=website_data_form.WebsiteURL.data,
+                                   WebsiteUserName=website_data_form.WebsiteUserName.data,
+                                   WebsitePassword=website_data_form.WebsitePassword.data,
+                                   user_id=current_user.id)
+        db.session.add(website_data)
+        db.session.commit()
+        return redirect(url_for('index'))
+
+    '''if (request.method == "POST") & (request.form.get('post_header') == 'delete'):
+        website_data_id = request.form.get('website_data_id')
+        website_data = WebsiteData.query.filter_by(id=website_data_id).first()
+        db.session.delete(website_data)
+        db.session.commit()
+        return redirect(url_for('index'))'''
+
+    if (request.method == "POST") & (request.form.get('post_header') == 'log out'):
+        logout_user()
+        return redirect(url_for('index'))
+
+    return render_template('index.html',
+                           website_data_form=forms.WebsiteDataForm(),
+                           user_websites=get_user_websites())
 
 
 if __name__ == "__main__":
