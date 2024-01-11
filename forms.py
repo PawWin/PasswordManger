@@ -5,13 +5,13 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 
 class RegistrationForm(FlaskForm):
-    fullname = StringField('Username',validators=[DataRequired(), Length(min=2, max=300)])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Sign Up',render_kw={"class": "btn-register"})
+    fullname = StringField('Username',validators=[DataRequired(), Length(min=2, max=300)],render_kw={"class": "form-style"})
+    email = StringField('Email', validators=[DataRequired(), Email()],render_kw={"class": "form-style"})
+    password = PasswordField('Password', validators=[DataRequired()],render_kw={"class": "form-style"})
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')],render_kw={"class": "form-style"})
+    submit = SubmitField('Sign Up',render_kw={"class": "btn mt-4"})
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators = [DataRequired(), Email()])
-    password = PasswordField('Password', validators = [DataRequired()])
-    submit = SubmitField('Login',render_kw={"class": "btn-login"})
+    email = StringField('Email', validators = [DataRequired(), Email()],render_kw={"class": "form-style"})
+    password = PasswordField('Password', validators = [DataRequired()],render_kw={"class": "form-style"})
+    submit = SubmitField('Login',render_kw={"class": "btn mt-4"})
