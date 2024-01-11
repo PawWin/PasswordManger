@@ -143,7 +143,9 @@ h6 span{
 
 .form-style{
     margin-top: 20px;
-
+}
+form-group mt2{
+  z-index: auto;
 }
 .form-group{
   position: relative;
