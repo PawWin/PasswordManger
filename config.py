@@ -38,3 +38,25 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20), unique = True, nullable = False)
     email = db.Column(db.String(120), unique = True, nullable = False)
     password = db.Column(db.String(60), nullable = False)
+    websiteData = db.relationship('WebsiteData', backref='user', lazy=True)
+
+
+class WebsiteData(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    WebsiteName = db.Column(db.String(60), nullable=False)
+    WebsiteURL = db.Column(db.String(255), nullable=True)
+    WebsiteUserName = db.Column(db.String(255), nullable=True)
+    WebsitePassword = db.Column(db.String(255), nullable=False)
+
+
+def get_user_websites():
+    if current_user.is_authenticated:
+        user_id = current_user.id
+        user_websites = WebsiteData.query.filter_by(user_id=user_id).all()
+        return user_websites
+    else:
+        return None
+
+
