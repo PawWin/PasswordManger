@@ -141,7 +141,10 @@ h6 span{
   display: block;
 }
 
+.form-style{
+    margin-top: 20px;
 
+}
 .form-group{
   position: relative;
   display: block;
