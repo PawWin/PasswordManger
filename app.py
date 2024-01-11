@@ -6,10 +6,11 @@ from flask_login import login_user, current_user, logout_user, login_required
 from sqlalchemy.exc import IntegrityError
 import random
 import string
-@app.route('/', metohds=['GET', 'POST'])
+
+
+@app.route('/', methods=['GET', 'POST'])
 def base():
     if forms.RegistrationForm().validate_on_submit():
-        # Creating a new user in the database
         register_form = forms.RegistrationForm()
         hashed_password = bcrypt.generate_password_hash(register_form.password.data).decode('utf-8')
         user = User(username=register_form.username.data,
@@ -20,11 +21,9 @@ def base():
             db.session.commit()
         except IntegrityError:
             return redirect(url_for('base'))
-        # Signing in the user after creating them
         user = User.query.filter_by(email=forms.RegistrationForm().email.data).first()
         if user and bcrypt.check_password_hash(user.password, forms.RegistrationForm().password.data):
             login_user(user)
-            # Taking the user to the authenticated side of the site
             return redirect(url_for('base'))
 
     if forms.LoginForm().validate_on_submit():
@@ -43,5 +42,7 @@ def base():
 
 
 if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
 
