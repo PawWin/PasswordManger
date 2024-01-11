@@ -1,9 +1,10 @@
+import os
+import sqlite3
+
 from flask import Flask
 from flask_login import UserMixin, current_user, login_manager
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
-import os
-import sqlite3
 from flask_wtf.csrf import CSRFProtect
 from flask_bcrypt import Bcrypt
 from sqlalchemy import create_engine
