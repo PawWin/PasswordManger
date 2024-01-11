@@ -19,24 +19,24 @@ def base():
             db.session.add(user)
             db.session.commit()
         except IntegrityError:
-            return redirect(url_for('placeholder'))
+            return redirect(url_for('base'))
         # Signing in the user after creating them
         user = User.query.filter_by(email=forms.RegistrationForm().email.data).first()
         if user and bcrypt.check_password_hash(user.password, forms.RegistrationForm().password.data):
             login_user(user)
             # Taking the user to the authenticated side of the site
-            return redirect(url_for('palceholder'))
+            return redirect(url_for('base'))
 
     if forms.LoginForm().validate_on_submit():
         user = User.query.filter_by(email=forms.LoginForm().email.data).first()
         if user and bcrypt.check_password_hash(user.password, forms.LoginForm().password.data):
             login_user(user, remember=forms.LoginForm().remember.data)
             #print(current_user.get_all_image_links())
-            return redirect(url_for('placeholder'))
+            return redirect(url_for('base'))
 
     if (request.method == "POST") & (request.form.get('post_header') == 'log out'):
         logout_user()
-        return redirect(url_for('placeholder'))
+        return redirect(url_for('base'))
 
     return render_template('base.html',
                            login_form=forms.LoginForm(),
