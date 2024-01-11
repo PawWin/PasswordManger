@@ -13,7 +13,7 @@ def base():
     if forms.RegistrationForm().validate_on_submit():
         register_form = forms.RegistrationForm()
         hashed_password = bcrypt.generate_password_hash(register_form.password.data).decode('utf-8')
-        user = User(username=register_form.username.data,
+        user = User(fullname=register_form.fullname.data,
                     email=register_form.email.data,
                     password=hashed_password)
         try:

@@ -42,24 +42,21 @@
 									<div class="center-wrap">
 										<div class="section text-center">
 											<h4 class="mb-4 pb-3">Sign Up</h4>
-											{{ register_form.hidden_tag() }}
 											<div class="form-group">
+												<form action="" method="post">
+													{{ register_form.hidden_tag() }}
 													{{ register_form.fullname( placeholder = "Your Full Name")}}
-												<i class="input-icon uil uil-user"></i>
-											</div>
-											<div class="form-group mt-2">
+
 												{{ register_form.email( placeholder = "Your Email") }}
-												<i class="input-icon uil uil-at"></i>
-											</div>
-											<div class="form-group mt-2">
+
 												{{ register_form.password( placeholder = "Your Password") }}
-												<i class="input-icon uil uil-lock-alt"></i>
-											</div>
-											<div class="form-group mt-2">
+
 												{{ register_form.confirm_password( placeholder = "Confirm Password") }}
+													{{ register_form.submit() }}
+												</form>
 												<i class="input-icon uil uil-lock-alt"></i>
 											</div>
-											{{ register_form.submit() }}
+
 				      					</div>
 			      					</div>
 			      				</div>
