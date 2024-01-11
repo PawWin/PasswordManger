@@ -6,7 +6,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from sqlalchemy.exc import IntegrityError
 import random
 import string
-@app.route('/')
+@app.route('/', metohds=['GET', 'POST'])
 def base():
     if forms.RegistrationForm().validate_on_submit():
         # Creating a new user in the database
