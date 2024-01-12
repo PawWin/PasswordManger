@@ -23,3 +23,6 @@ class WebsiteDataForm(FlaskForm):
     WebsiteUserName = StringField('Website User Name', validators=[DataRequired()],render_kw={"class": "form-style"})
     WebsitePassword = StringField('Website Password', validators=[DataRequired()],render_kw={"class": "form-style"})
     submit = SubmitField('Submit',render_kw={"class": "btn btn-success"})
+
+class DeleteWebsiteDataForm(FlaskForm):
+    submit = SubmitField('Delete',render_kw={"class": "btn btn-danger"})

@@ -1,6 +1,6 @@
 import forms
 
-from config import app, db, bcrypt, User, get_user_websites, WebsiteData, encrypt_password, decrypt_password
+from config import app, db, bcrypt, User, get_user_websites, WebsiteData, encrypt_password, decrypt_password, delete_website_data
 from flask import render_template, request, redirect, url_for
 from flask_login import login_user, current_user, logout_user, login_required
 from sqlalchemy.exc import IntegrityError
@@ -70,11 +70,14 @@ def index():
     for website in user_websites:
         website.WebsitePassword = decrypt_password(website.WebsitePassword)
 
+    delete_from = forms.DeleteWebsiteDataForm()
+
+    if delete_from.validate_on_submit():
+        delete_website_data(delete_from.hidden_argument.data)
+        return "Button clicked!"
     return render_template('index.html',
                            website_data_form=forms.WebsiteDataForm(),
-                           user_websites=user_websites,user=current_user)
-
-
+                           user_websites=user_websites,user=current_user,button_argument='example_argument',delete_from=delete_from)
 
 
 if __name__ == "__main__":

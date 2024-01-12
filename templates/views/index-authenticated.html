@@ -57,8 +57,7 @@
 
                       <thead>
                         <tr>
-                            <th scope="col" class="text-center">Website Name</th>
-                            <th scope="col" class="text-center">Website URL</th>
+                            <th scope="col" class="text-center">Website</th>
                             <th scope="col" class="text-center">Website Username</th>
                             <th scope="col" class="text-center">WebsitePassword</th>
                             <th scope="col" class="text-center"> </th>
@@ -67,11 +66,14 @@
                       <tbody>
                       {%for website in user_websites %}
                         <tr>
-                          <th scope="row">{{website.WebsiteName}}</th>
-                          <td>{{website.WebsiteURL}}</td>
-                          <td>{{website.WebsiteUserName}}</td>
-                          <td>{{website.WebsitePassword}}</td>
-                          <td> </td>
+                          <td class="text-center align-middle"><a href="{{website.WebsiteURL}}">{{website.WebsiteName}}</a></td>
+                          <td class="text-center align-middle">{{website.WebsiteUserName}}</td>
+                          <td class="text-center align-middle">{{website.WebsitePassword}}</td>
+                          <td class="text-center align-middle">
+                                  {{delete_from.hidden_tag()}}
+                                    {{delete_from.submit()}}
+
+                          </td>
                         </tr>
                         {% endfor %}
                       <!--
