@@ -51,10 +51,17 @@ def encrypt_password(password):
     encrypted_password = cipher_suite.encrypt(password.encode('utf-8'))
     return encrypted_password
 
+
 # Function to decrypt an encrypted password
 def decrypt_password(encrypted_password):
     decrypted_password = cipher_suite.decrypt(encrypted_password)
     return decrypted_password.decode('utf-8')
+
+
+def delete_website_data(website_data_id):
+    website_data = WebsiteData.query.filter_by(id=website_data_id).first()
+    db.session.delete(website_data)
+    db.session.commit()
 
 
 # DataBase object configuration
