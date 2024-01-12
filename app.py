@@ -66,9 +66,13 @@ def index():
         logout_user()
         return redirect(url_for('index'))
 
+    user_websites = get_user_websites()
+    for website in user_websites:
+        website.WebsitePassword = decrypt_password(website.WebsitePassword)
+
     return render_template('index.html',
                            website_data_form=forms.WebsiteDataForm(),
-                           user_websites=get_user_websites(),user=current_user)
+                           user_websites=user_websites,user=current_user)
 
 
 
