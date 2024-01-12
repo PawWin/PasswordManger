@@ -144,9 +144,6 @@ h6 span{
 .form-style{
     margin-top: 20px;
 }
-form-group mt2{
-  z-index: auto;
-}
 .form-group{
   position: relative;
   display: block;
@@ -261,7 +258,6 @@ form-group mt2{
   border: none;
   background-color: #ffeba7;
   color: #102770;
-  box-shadow: 0 8px 24px 0 rgba(255,235,167,.2);
 }
 .btn:active,
 .btn:focus{
@@ -274,9 +270,6 @@ form-group mt2{
   color: #ffeba7;
   box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
 }
-
-
-
 
 .logo {
 	position: absolute;
@@ -291,3 +284,49 @@ form-group mt2{
 	width: auto;
 	display: block;
 }
+
+#row-user{
+  background-color: red;
+}
+
+.modal-body{
+  background-color: #2a2b38;
+  color: #c4c3ca;
+}
+.modal-header{
+  background-color: #2a2b38;
+  color: #c4c3ca;
+}
+.modal-footer{
+  background-color: #2a2b38;
+  color: #c4c3ca;
+}
+.btn-success{
+  margin-top: 20px;
+}
+
+.mt-4{
+  margin-bottom: 20px;
+}
+.mt-3{
+  margin: 0;
+}
+.mt-6{
+  float: right;
+}
+#change{
+  margin-bottom: 10px;
+  width: 70%;
+}
+
+.buttons{
+  display: flex;
+  flex-direction: column;
+}
+#delete{
+   width: 70%;
+}
+
+
+
+
