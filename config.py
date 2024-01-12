@@ -33,8 +33,17 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 
 
-# Generate a key for encryption and decryption
-key = Fernet.generate_key()
+# Load or generate the key for encryption and decryption
+ENCRYPTION_KEY_FILE = 'encryption_key.key'
+
+if os.path.exists(ENCRYPTION_KEY_FILE):
+    with open(ENCRYPTION_KEY_FILE, 'rb') as key_file:
+        key = key_file.read()
+else:
+    key = Fernet.generate_key()
+    with open(ENCRYPTION_KEY_FILE, 'wb') as key_file:
+        key_file.write(key)
+
 cipher_suite = Fernet(key)
 
 # Function to encrypt a password
