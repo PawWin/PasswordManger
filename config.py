@@ -59,4 +59,3 @@ def get_user_websites():
     else:
         return None
 
-
