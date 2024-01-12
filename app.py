@@ -67,7 +67,9 @@ def index():
 
     return render_template('index.html',
                            website_data_form=forms.WebsiteDataForm(),
-                           user_websites=get_user_websites())
+                           user_websites=get_user_websites(),user=current_user)
+
+
 
 
 if __name__ == "__main__":

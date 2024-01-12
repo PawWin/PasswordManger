@@ -22,4 +22,4 @@ class WebsiteDataForm(FlaskForm):
     WebsiteURL = StringField('Website URL', validators=[DataRequired()],render_kw={"class": "form-style"})
     WebsiteUserName = StringField('Website User Name', validators=[DataRequired()],render_kw={"class": "form-style"})
     WebsitePassword = StringField('Website Password', validators=[DataRequired()],render_kw={"class": "form-style"})
-    submit = SubmitField('Submit',render_kw={"class": "btn mt-4"})
+    submit = SubmitField('Submit',render_kw={"class": "btn btn-success"})
