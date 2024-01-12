@@ -1,6 +1,6 @@
 import forms
 
-from config import app, db, bcrypt, User, get_user_websites, WebsiteData
+from config import app, db, bcrypt, User, get_user_websites, WebsiteData, encrypt_password, decrypt_password
 from flask import render_template, request, redirect, url_for
 from flask_login import login_user, current_user, logout_user, login_required
 from sqlalchemy.exc import IntegrityError
@@ -45,10 +45,11 @@ def base():
 def index():
     if forms.WebsiteDataForm().validate_on_submit():
         website_data_form = forms.WebsiteDataForm()
+        encrypted_password = encrypt_password(website_data_form.WebsitePassword.data)
         website_data = WebsiteData(WebsiteName=website_data_form.WebsiteName.data,
                                    WebsiteURL=website_data_form.WebsiteURL.data,
                                    WebsiteUserName=website_data_form.WebsiteUserName.data,
-                                   WebsitePassword=website_data_form.WebsitePassword.data,
+                                   WebsitePassword=encrypted_password,
                                    user_id=current_user.id)
         db.session.add(website_data)
         db.session.commit()

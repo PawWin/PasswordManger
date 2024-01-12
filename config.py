@@ -8,6 +8,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 from flask_bcrypt import Bcrypt
 from sqlalchemy import create_engine
+from cryptography.fernet import Fernet
+
 
 app = Flask(__name__,  template_folder='./templates')
 
@@ -29,6 +31,21 @@ def load_user(user_id):
 # Database config
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
+
+
+# Generate a key for encryption and decryption
+key = Fernet.generate_key()
+cipher_suite = Fernet(key)
+
+# Function to encrypt a password
+def encrypt_password(password):
+    encrypted_password = cipher_suite.encrypt(password.encode('utf-8'))
+    return encrypted_password
+
+# Function to decrypt an encrypted password
+def decrypt_password(encrypted_password):
+    decrypted_password = cipher_suite.decrypt(encrypted_password)
+    return decrypted_password.decode('utf-8')
 
 
 # DataBase object configuration
