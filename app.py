@@ -1,5 +1,4 @@
 import forms
-
 from config import app, db, bcrypt, User, get_user_websites, WebsiteData, encrypt_password, decrypt_password, delete_website_data
 from flask import render_template, request, redirect, url_for
 from flask_login import login_user, current_user, logout_user, login_required
@@ -67,17 +66,22 @@ def index():
         return redirect(url_for('index'))
 
     user_websites = get_user_websites()
+    print(user_websites)
     for website in user_websites:
-        website.WebsitePassword = decrypt_password(website.WebsitePassword)
+        try:
+            website.WebsitePassword = decrypt_password(website.WebsitePassword)
+        except:
+            pass
 
-    delete_from = forms.DeleteWebsiteDataForm()
+    delete_form = forms.DeleteWebsiteDataForm()
+    if delete_form.validate_on_submit():
+        website_id_to_delete = delete_form.hidden_argument.data
+        delete_website_data(website_id_to_delete)
+        return redirect(url_for('index'))
 
-    if delete_from.validate_on_submit():
-        delete_website_data(delete_from.hidden_argument.data)
-        return "Button clicked!"
     return render_template('index.html',
                            website_data_form=forms.WebsiteDataForm(),
-                           user_websites=user_websites,user=current_user,button_argument='example_argument',delete_from=delete_from)
+                           user_websites=user_websites,user=current_user,delete_form=delete_form)
 
 
 if __name__ == "__main__":

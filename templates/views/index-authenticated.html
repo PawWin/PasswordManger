@@ -12,18 +12,6 @@
 
 </head>
 <body>
-    <script type=text/javascript>
-        $(function() {
-          $('a#test').on('click', function(e) {
-            e.preventDefault()
-            $.getJSON('/background_process_test',
-                function(data) {
-              //do nothing
-            });
-            return false;
-          });
-        });
-</script>
         <div class="container">
                 <div class="row">
                     <div class="card text-white bg-dark mb-3" style="width: 100%;">
@@ -70,9 +58,11 @@
                           <td class="text-center align-middle">{{website.WebsiteUserName}}</td>
                           <td class="text-center align-middle">{{website.WebsitePassword}}</td>
                           <td class="text-center align-middle">
-                                  {{delete_from.hidden_tag()}}
-                                    {{delete_from.submit()}}
-
+                              <form method="post" action="{{ url_for('index') }}">
+                                  {{delete_form.csrf_token()}}
+                                    {{delete_form.hidden_argument(value=website.id)}}
+                                    {{delete_form.submit()}}
+                              </form>
                           </td>
                         </tr>
                         {% endfor %}
@@ -114,7 +104,7 @@
                           </div>
                           <div class="modal-body">
                             <form action="" method="post">
-                                {{ website_data_form.hidden_tag() }}
+                                {{ website_data_form.csrf_token() }}
                                 {{ website_data_form.WebsiteName(placeholder = "Website Name") }}
                                 {{ website_data_form.WebsiteURL(placeholder = "Website URL") }}
                                 {{ website_data_form.WebsiteUserName(placeholder = "Your Username on the Website (Leave empty if none)") }}

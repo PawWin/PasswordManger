@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, DateField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, DateField, HiddenField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 
@@ -25,4 +25,5 @@ class WebsiteDataForm(FlaskForm):
     submit = SubmitField('Submit',render_kw={"class": "btn btn-success"})
 
 class DeleteWebsiteDataForm(FlaskForm):
+    hidden_argument = HiddenField(default="0")
     submit = SubmitField('Delete',render_kw={"class": "btn btn-danger"})
