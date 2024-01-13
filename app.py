@@ -42,6 +42,8 @@ def base():
 
 @app.route('/index', methods=['GET', 'POST'])
 def index():
+    if not current_user.is_authenticated:
+        return redirect(url_for('base'))
     if forms.WebsiteDataForm().validate_on_submit():
         website_data_form = forms.WebsiteDataForm()
         encrypted_password = encrypt_password(website_data_form.WebsitePassword.data)
@@ -65,13 +67,6 @@ def index():
         logout_user()
         return redirect(url_for('index'))
 
-    user_websites = get_user_websites()
-    print(user_websites)
-    for website in user_websites:
-        try:
-            website.WebsitePassword = decrypt_password(website.WebsitePassword)
-        except:
-            pass
 
     delete_form = forms.DeleteWebsiteDataForm()
     if delete_form.validate_on_submit():
@@ -81,7 +76,7 @@ def index():
 
     return render_template('index.html',
                            website_data_form=forms.WebsiteDataForm(),
-                           user_websites=user_websites,user=current_user,delete_form=delete_form)
+                           user_websites=get_user_websites(),user=current_user,delete_form=delete_form)
 
 
 if __name__ == "__main__":

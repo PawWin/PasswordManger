@@ -88,6 +88,13 @@ def get_user_websites():
     if current_user.is_authenticated:
         user_id = current_user.id
         user_websites = WebsiteData.query.filter_by(user_id=user_id).all()
+        for website in user_websites:
+            try:
+                website.decrypted_password = decrypt_password(website.WebsitePassword)
+            except Exception as e:
+                # Handle decryption errors, you might want to log or handle them appropriately
+                website.decrypted_password = "Decryption Error"
+
         return user_websites
     else:
         return None

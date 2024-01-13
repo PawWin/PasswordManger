@@ -1,5 +1,5 @@
     {% if current_user.is_authenticated %}
         {% include 'views/index-authenticated.html' %}
       {% else %}
-        {% include 'views/index-unauthenticated.html' %}
+        {% include 'views/base-unauthenticated.html' %}
 	{% endif %}
