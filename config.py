@@ -1,6 +1,7 @@
 import os
 import sqlite3
-
+import base64
+import onetimepass
 from flask import Flask
 from flask_login import UserMixin, current_user, login_manager
 from flask_login import LoginManager
@@ -68,10 +69,25 @@ def delete_website_data(website_data_id):
 class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key = True)
-    fullname = db.Column(db.String(20), unique = True, nullable = False)
+    username = db.Column(db.String(20), unique = True, nullable = False)
     email = db.Column(db.String(120), unique = True, nullable = False)
     password = db.Column(db.String(60), nullable = False)
     websiteData = db.relationship('WebsiteData', backref='user', lazy=True)
+    otp_secret = db.Column(db.String(16))
+
+    def __init__(self, **kwargs):
+        super(User, self).__init__(**kwargs)
+        if self.otp_secret is None:
+            # generate a random secret
+            self.otp_secret = base64.b32encode(os.urandom(10)).decode('utf-8')
+
+
+    def get_totp_uri(self):
+        return 'otpauth://totp/2FA-Demo:{0}?secret={1}&issuer=2FA-Demo' \
+            .format(self.username, self.otp_secret)
+
+    def verify_totp(self, token):
+        return onetimepass.valid_totp(token, self.otp_secret)
 
 
 class WebsiteData(db.Model):

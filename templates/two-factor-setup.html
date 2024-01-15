@@ -24,36 +24,13 @@
 								<div class="card-front">
 									<div class="center-wrap">
 										<div class="section text-center">
-											<h4 class="mb-4 pb-3">Log In</h4>
-											<div class="form-group mt2">
-												<form action="" method="post">
-													{{ login_form.hidden_tag() }}
-													{{ login_form.email(placeholder = "Your Email") }}
-													{{ login_form.password(placeholder = "Password") }}
-													{{ login_form.token(placeholder = "Token")}}
-													{{ login_form.submit() }}
-												</form>
-				      						</div>
+											<h4 class="mb-4 pb-3">Two-Factor Authentication Setup</h4>
+											<p>Open Your Authenticator App (Like Google Authenticator)</p>
+											<p><img id="qrcode" src="{{ url_for('qrcode') }}" alt="qr"></p>
+											<p>I'm done, take me to the <a href="{{ url_for('base') }}">Login</a> page!</p>
 			      						</div>
 			      					</div>
 								</div>
-									<div class="card-back">
-										<div class="center-wrap">
-											<div class="section text-center">
-												<h4 class="mb-4 pb-3">Sign Up</h4>
-												<div class="form-group mt2">
-													<form action="" method="post">
-														{{ register_form.hidden_tag() }}
-														{{ register_form.username( placeholder = "Your Full Name")}}
-														{{ register_form.email( placeholder = "Your Email") }}
-														{{ register_form.password( placeholder = "Your Password") }}
-														{{ register_form.confirm_password( placeholder = "Confirm Password") }}
-														{{ register_form.submit() }}
-													</form>
-												</div>
-											</div>
-										</div>
-									</div>
 								</div>
 							</div>
 						</div>
